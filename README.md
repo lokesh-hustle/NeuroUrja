@@ -1,4 +1,4 @@
-# NeuroUrja (न्यूरो ऊर्जा) ⚡🧠
+# NeuroUrja
 ### Brain-Inspired, Multi-Agent Energy Optimization Platform for Multi-Building Microgrids
 **Track #7: Clean Energy**
 

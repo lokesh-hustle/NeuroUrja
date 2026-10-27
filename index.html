@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroUrja — Brain-Inspired Multi-Agent Energy Platform</title>
+  <meta name="description" content="Neuromorphic Spiking Neural Network (LIF) and Autonomous Multi-Agent Energy Optimization Platform for Multi-Building Microgrids (Track #7 Clean Energy).">
+  
+  <!-- Modern Clean Typography: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons (CDN) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Top Header & Live Telemetry Beacon -->
+    <header class="top-header">
+      <div class="brand-section">
+        <div class="brand-icon-wrapper">
+          <i data-lucide="zap" style="width: 24px; height: 24px;"></i>
+        </div>
+        <div class="brand-titles">
+          <h1>
+            NeuroUrja
+            <span class="badge-track">Track #7: Clean Energy</span>
+          </h1>
+          <p>Neuromorphic Spiking (LIF) & Autonomous Multi-Agent Microgrid Platform</p>
+        </div>
+      </div>
+
+      <div class="header-status-group">
+        <div class="status-badge status-live">
+          <span class="status-pulse-dot"></span>
+          <span>MICROGRID SYNAPSE ACTIVE</span>
+        </div>
+
+        <div class="speed-control">
+          <span>SIM:</span>
+          <button class="speed-btn active" id="speed1x">1x</button>
+          <button class="speed-btn" id="speed2x">2x</button>
+          <button class="speed-btn" id="speed5x">5x</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 1. "Why NeuroUrja is Unique" Architectural Pillars Ribbon -->
+    <section class="pillars-ribbon" aria-label="Core Architectural Pillars">
+      
+      <!-- Pillar 1: Neuromorphic LIF Gatekeeper -->
+      <div class="pillar-card pillar-neuromorphic">
+        <div class="pillar-header">
+          <span class="pillar-tag">Pillar 1: Neuromorphic LIF</span>
+          <i data-lucide="activity" style="width: 18px; height: 18px; color: var(--synapse-primary);"></i>
+        </div>
+        <h3 class="pillar-title">Event-Driven vs 24/7 Polling</h3>
+        <p class="pillar-desc">
+          LIF SNN gatekeeper (β=0.88) ignores sensor noise. AI agents sleep at 0 W until |V_m| ≥ 1.0 threshold fires an action spike.
+        </p>
+        <div class="pillar-metric-highlight">
+          <span class="pillar-metric-value" id="pillarDormancyVal">94.2%</span>
+          <span class="pillar-metric-label">Compute Dormancy (0 W Idle)</span>
+        </div>
+      </div>
+
+      <!-- Pillar 2: Multi-Agent Synaptic P2P Transfer -->
+      <div class="pillar-card pillar-p2p">
+        <div class="pillar-header">
+          <span class="pillar-tag">Pillar 2: Synaptic P2P MAS</span>
+          <i data-lucide="share-2" style="width: 18px; height: 18px; color: var(--donor-emerald);"></i>
+        </div>
+        <h3 class="pillar-title">Context-Aware Microgrid P2P</h3>
+        <p class="pillar-desc">
+          Idle donor nodes (Hostel 96% SOC) autonomously route clean power to depleted receiver nodes (Academic 14% SOC) at ₹0.00 penalty.
+        </p>
+        <div class="pillar-metric-highlight">
+          <span class="pillar-metric-value" id="pillarTransferVal">65.0 kW</span>
+          <span class="pillar-metric-label">Active Clean P2P Transfer</span>
+        </div>
+      </div>
+
+      <!-- Pillar 3: Hardware-Safe Guardrails -->
+      <div class="pillar-card pillar-security">
+        <div class="pillar-header">
+          <span class="pillar-tag">Pillar 3: Zero-Trust Guardrails</span>
+          <i data-lucide="shield-check" style="width: 18px; height: 18px; color: var(--guard-indigo);"></i>
+        </div>
+        <h3 class="pillar-title">Hardware Safety Interlocks</h3>
+        <p class="pillar-desc">
+          HMAC-SHA256 signed tokens, cable 75 kW thermal limit, battery 15% SOC lock, and inviolable Cryo-Lab cold storage protection.
+        </p>
+        <div class="pillar-metric-highlight">
+          <span class="pillar-metric-value" id="pillarUptimeVal">100.0%</span>
+          <span class="pillar-metric-label">Essential Service SLA Uptime</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 2. Hero Interactive Visualizer: Two-Building Synaptic Power Transfer -->
+    <section class="hero-visualizer-card" aria-label="Synaptic Power Transfer Centerpiece">
+      <div class="visualizer-header">
+        <div class="visualizer-header-title">
+          <i data-lucide="network" style="width: 22px; height: 22px; color: var(--synapse-primary);"></i>
+          <h2>Campus Synaptic Power Transfer Mesh</h2>
+          <span class="pulse-badge" id="synapseStatusBadge">SYNAPSE ENGAGED</span>
+        </div>
+
+        <div class="active-transfer-summary-pill" id="activeTransferPill">
+          <i data-lucide="zap" style="width: 16px; height: 16px;"></i>
+          <span id="transferPillText">⚡ 65.0 kW Clean Transfer Active • ₹942.50/hr Saved</span>
+        </div>
+      </div>
+
+      <!-- Dual Node Stage with Synaptic Bridge -->
+      <div class="synaptic-stage">
+
+        <!-- Left Node: Building A (Student Hostel - Donor) -->
+        <div class="building-node node-donor" id="nodeHostel">
+          <div class="node-top-tag">
+            <span class="node-role-pill">DONOR NODE</span>
+            <span class="node-agent-name">Hostel Agent (Aura-1)</span>
+          </div>
+
+          <h3 class="building-node-title">Building A: Student Hostel</h3>
+          <p class="building-node-sub">Idle Daytime State • Rooftop Solar Abundance</p>
+
+          <div class="building-telemetry-grid">
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label"><i data-lucide="sun" style="width: 12px; height: 12px;"></i> Solar Gen</div>
+              <div class="telemetry-cell-val highlight" id="hostelSolarVal">85.0 kW</div>
+            </div>
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label"><i data-lucide="cpu" style="width: 12px; height: 12px;"></i> Internal Load</div>
+              <div class="telemetry-cell-val" id="hostelLoadVal">18.0 kW</div>
+            </div>
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label"><i data-lucide="users" style="width: 12px; height: 12px;"></i> Occupancy</div>
+              <div class="telemetry-cell-val" id="hostelOccVal">24 / 600 (4%)</div>
+            </div>
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label"><i data-lucide="gauge" style="width: 12px; height: 12px;"></i> Net Surplus</div>
+              <div class="telemetry-cell-val highlight" id="hostelSurplusVal">+67.0 kW</div>
+            </div>
+          </div>
+
+          <div class="battery-bar-wrapper">
+            <div class="battery-bar-header">
+              <span>Battery Storage (LFP 120 kWh)</span>
+              <span id="hostelSocText" style="color: var(--donor-emerald);">96.0% (Full)</span>
+            </div>
+            <div class="battery-progress-track">
+              <div class="battery-progress-fill" id="hostelSocBar" style="width: 96%;"></div>
+            </div>
+          </div>
+
+          <div class="essential-service-badge" style="background: var(--donor-surface); border-color: var(--donor-border); color: var(--donor-emerald);">
+            <i data-lucide="check-circle" style="width: 14px; height: 14px;"></i>
+            <span>SURPLUS_SPIKE Emitted • Ready to Export</span>
+          </div>
+        </div>
+
+        <!-- Center Bridge: Neuromorphic AI Axon & Bi-Directional Power Conduit -->
+        <div class="synapse-bridge-container">
+          
+          <!-- Top Channel: AI-to-AI Agent Negotiation Axon -->
+          <div class="channel-box">
+            <div class="channel-label ai-channel">
+              <span><i data-lucide="cpu" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i> AI Synaptic Axon (Event Spikes)</span>
+              <span id="axonSpikeStatus">SURPLUS ⇄ DEFICIT</span>
+            </div>
+            <div class="canvas-conduit-wrapper">
+              <canvas id="synapticCanvas"></canvas>
+            </div>
+            <div class="channel-subtext">
+              <span>Protocol: HMAC-SHA256 Token</span>
+              <span id="cryptoHandshakeStatus">Handshake Verified ✓</span>
+            </div>
+          </div>
+
+          <!-- Bottom Channel: DC/AC Microgrid Power Bus Flow -->
+          <div class="channel-box">
+            <div class="channel-label power-channel">
+              <span><i data-lucide="zap" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i> Microgrid Bus (Bi-Directional)</span>
+              <span id="powerKwDisplay">⚡ 65.0 kW Flow</span>
+            </div>
+            <div class="canvas-conduit-wrapper">
+              <canvas id="powerFlowCanvas"></canvas>
+            </div>
+            <div class="channel-subtext">
+              <span>Ampacity Limit: 75.0 kW</span>
+              <span>Zero-Carbon P2P</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Node: Building B (Academic Block - Receiver) -->
+        <div class="building-node node-receiver" id="nodeAcademic">
+          <div class="node-top-tag">
+            <span class="node-role-pill">RECEIVER NODE</span>
+            <span class="node-agent-name">Academic Agent (Cortex-2)</span>
+          </div>
+
+          <h3 class="building-node-title">Building B: Academic & Research</h3>
+          <p class="building-node-sub">High Occupancy • Critical Laboratory Services</p>
+
+          <div class="building-telemetry-grid">
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label"><i data-lucide="sun" style="width: 12px; height: 12px;"></i> Solar Gen</div>
+              <div class="telemetry-cell-val" id="acadSolarVal">32.0 kW</div>
+            </div>
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label"><i data-lucide="cpu" style="width: 12px; height: 12px;"></i> Internal Demand</div>
+              <div class="telemetry-cell-val highlight" id="acadLoadVal">115.0 kW</div>
+            </div>
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label"><i data-lucide="users" style="width: 12px; height: 12px;"></i> Occupancy</div>
+              <div class="telemetry-cell-val highlight" id="acadOccVal">480 / 520 (92%)</div>
+            </div>
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label"><i data-lucide="thermometer" style="width: 12px; height: 12px;"></i> Comfort Settle</div>
+              <div class="telemetry-cell-val" id="acadTempVal">22.8°C</div>
+            </div>
+          </div>
+
+          <div class="battery-bar-wrapper">
+            <div class="battery-bar-header">
+              <span>Battery Storage (LFP 90 kWh)</span>
+              <span id="acadSocText" style="color: var(--alert-red);">14.0% (Critical Low)</span>
+            </div>
+            <div class="battery-progress-track">
+              <div class="battery-progress-fill" id="acadSocBar" style="width: 14%;"></div>
+            </div>
+          </div>
+
+          <div class="essential-service-badge">
+            <i data-lucide="lock" style="width: 14px; height: 14px;"></i>
+            <span>Essential Service: Lab Cold Storage (-80°C) 100% Protected</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. Midsection: Live Neuromorphic Oscilloscope & 4-Input Control Deck -->
+    <section class="mid-section-grid">
+      
+      <!-- Live Neuromorphic Oscilloscope -->
+      <div class="mid-card">
+        <div class="card-title-bar">
+          <h3>
+            <i data-lucide="git-commit" style="width: 18px; height: 18px; color: var(--synapse-primary);"></i>
+            LIF Membrane Potential Waveform V_m(t)
+          </h3>
+          <div class="card-legend">
+            <div class="legend-item">
+              <span class="legend-swatch swatch-hostel"></span>
+              <span>Hostel V_m (+Surplus)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-swatch swatch-academic"></span>
+              <span>Academic V_m (-Deficit)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-swatch swatch-threshold"></span>
+              <span>Threshold (±1.0)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="oscilloscope-canvas-wrapper">
+          <canvas id="oscilloscopeCanvas"></canvas>
+        </div>
+
+        <div class="oscilloscope-footer">
+          <div>
+            <span>Biophysical Equation: </span>
+            <span class="math-badge">V_m(t) = 0.88·V_m(t-1) + I_syn(t)</span>
+          </div>
+          <div id="oscilloscopeStatusText" style="color: var(--donor-emerald); font-weight: 700;">
+            Sub-threshold noise leaks away (Agents 100% asleep)
+          </div>
+        </div>
+      </div>
+
+      <!-- 4-Input Interactive Control Deck & Scenarios -->
+      <div class="mid-card">
+        <div class="card-title-bar">
+          <h3>
+            <i data-lucide="sliders" style="width: 18px; height: 18px; color: var(--guard-indigo);"></i>
+            Sensory Control Deck & Chaos Engineering
+          </h3>
+          <span style="font-size: 0.75rem; color: var(--text-tertiary); font-family: var(--font-mono);">Live Microgrid Interlock</span>
+        </div>
+
+        <!-- 3 Quick Scenario Buttons -->
+        <div class="scenario-button-group">
+          
+          <button class="scenario-btn btn-normal" id="btnNormalMidday">
+            <div class="scenario-btn-text">
+              <span>1. Normal Sunny Midday (Noise Leak Only)</span>
+              <span class="scenario-btn-sub">Minor sensor noise ripples • beta=0.88 leaks it away • Agents 100% asleep</span>
+            </div>
+            <i data-lucide="play" style="width: 16px; height: 16px; color: var(--donor-emerald);"></i>
+          </button>
+
+          <button class="scenario-btn btn-surge" id="btnSurgeCloudburst">
+            <div class="scenario-btn-text">
+              <span>2. Lecture Hall Surge + Cloudburst (Spike & Transfer)</span>
+              <span class="scenario-btn-sub">480 occupants surge • 70% solar drop • Discharges Action Spikes & 65 kW transfer</span>
+            </div>
+            <i data-lucide="zap" style="width: 16px; height: 16px; color: var(--receiver-amber);"></i>
+          </button>
+
+          <button class="scenario-btn btn-attack" id="btnSpoofedAttack">
+            <div class="scenario-btn-text">
+              <span>3. Simulate Spoofed Overload Attack (Firewall Test)</span>
+              <span class="scenario-btn-sub">Injects forged HMAC token (140 kW overload + command injection) • Guardrail blocks</span>
+            </div>
+            <i data-lucide="shield-alert" style="width: 16px; height: 16px; color: var(--guard-indigo);"></i>
+          </button>
+
+        </div>
+
+        <!-- 4-Input Sliders -->
+        <div class="sliders-grid">
+          
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <span>Academic Demand (kW)</span>
+              <span class="slider-value-display" id="valSliderDemand">115 kW</span>
+            </div>
+            <input type="range" class="input-slider" id="sliderDemand" min="20" max="150" value="115">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <span>Lecture Occupancy</span>
+              <span class="slider-value-display" id="valSliderOcc">480 p</span>
+            </div>
+            <input type="range" class="input-slider" id="sliderOcc" min="10" max="520" value="480">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <span>Hostel Solar Gen (kW)</span>
+              <span class="slider-value-display" id="valSliderSolar">85 kW</span>
+            </div>
+            <input type="range" class="input-slider" id="sliderSolar" min="0" max="95" value="85">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <span>Academic Battery SOC</span>
+              <span class="slider-value-display" id="valSliderSoc">14%</span>
+            </div>
+            <input type="range" class="input-slider" id="sliderSoc" min="10" max="100" value="14">
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 4. Bottom Section: Agent Dialog & Hash-Chained Audit Ledger -->
+    <section class="bottom-section-grid">
+      
+      <!-- Agent Reasoning Dialogue Feed -->
+      <div class="bottom-card">
+        <div class="card-title-bar">
+          <h3>
+            <i data-lucide="message-square" style="width: 18px; height: 18px; color: var(--synapse-primary);"></i>
+            Autonomous Agent Reasoning & Synaptic Handshake Feed
+          </h3>
+          <span style="font-size: 0.74rem; color: var(--text-tertiary); font-family: var(--font-mono);">Asynchronous Awakening</span>
+        </div>
+
+        <div class="feed-container" id="agentDialogFeed">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </div>
+
+      <!-- Immutable Hash-Chained Security Audit Ledger -->
+      <div class="bottom-card">
+        <div class="card-title-bar">
+          <h3>
+            <i data-lucide="lock" style="width: 18px; height: 18px; color: var(--guard-indigo);"></i>
+            Immutable Hash-Chained Audit Ledger (SHA-256)
+          </h3>
+          <span id="ledgerIntegrityBadge" style="font-size: 0.74rem; font-weight: 700; color: var(--donor-emerald); font-family: var(--font-mono);">
+            CHAIN INTEGRITY: VERIFIED ✓
+          </span>
+        </div>
+
+        <div class="feed-container" id="auditLedgerFeed">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- Toast Notifications Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Application Logic -->
+  <script src="/static/app.js"></script>
+</body>
+</html>
